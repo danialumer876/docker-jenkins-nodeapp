@@ -27,7 +27,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
         
-        def containerExists = sh(script: "docker ps -a -f name=hellonNodeContainer", returnStdout: true) == 0
+        def containerExists = sh(script: "docker ps -a -f name=hellonNodeContainer", returnStdout: true)
 
         if(containerExists){
         // build the image
