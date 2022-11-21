@@ -29,7 +29,7 @@ node {
         
         def containerExists = sh(script: "docker ps -a -f name=hellonNodeContainer", returnStdout: true) == 0
 
-        if(!containerExists){
+        if(containerExists){
         // build the image
             sh 'docker stop hellonNodeContainer'
             sh 'docker rm hellonNodeContainer'
