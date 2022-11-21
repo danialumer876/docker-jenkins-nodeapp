@@ -22,6 +22,13 @@ node {
             sh 'echo "Tests passed"'
         }
     }
+    
+    stage('Run Container') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        sh 'docker run -d -p 8002:8000 releaseworks/hellonode'
+    }
 
     stage('Push image') {
         /* Finally, we'll push the image with two tags:
