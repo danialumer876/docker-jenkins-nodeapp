@@ -26,8 +26,19 @@ node {
     stage('Run Container') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
+        
+        def containerExists = sh(script: "docker ps -a -f name=hellonNodeContainer", returnStdout: true) == 0
 
-        sh 'docker run -d -p 8002:8000 releaseworks/hellonode'
+        if(!containerExists){
+        // build the image
+            sh 'docker run --name hellonNodeContainer -p 8002:8000 -d releaseworks/hellonode'
+        } else {
+            sh 'docker stop hellonNodeContainer'
+            sh 'docker rm hellonNodeContainer'
+            sh 'docker run --name hellonNodeContainer -p 8002:8000 -d releaseworks/hellonode'
+        }
+
+        
     }
 
     stage('Push image') {
